@@ -1,0 +1,84 @@
+@model WebApplication5.Models.Employee
+
+@{
+    ViewData["Title"] = "Create Employee";
+    var cities = new List<string> { "Delhi", "Mumbai", "Patna", "Bangalore", "Ahmedabad" };
+}
+
+<h2 class="text-center text-primary mb-4">Create New Employee</h2>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form asp-action="EmployeeCreate" method="post" class="shadow p-4 bg-white rounded border">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Code" class="form-label"></label>
+                <input asp-for="Code" class="form-control" />
+                <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="DOB" class="form-label"></label>
+                <input asp-for="DOB" class="form-control" type="date" />
+                <span asp-validation-for="DOB" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="City" class="form-label"></label>
+                <select asp-for="City" class="form-select">
+                    @foreach (var city in cities)
+                    {
+                        <option value="@city">@city</option>
+                    }
+                </select>
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label">Gender</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" asp-for="Gender" value="Male" checked />
+                    <label class="form-check-label">Male</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" asp-for="Gender" value="Female" />
+                    <label class="form-check-label">Female</label>
+                </div>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-4">
+                <label class="form-label">Status</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" asp-for="Status" value="Active" checked />
+                    <label class="form-check-label">Active</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" asp-for="Status" value="Inactive" />
+                    <label class="form-check-label">Inactive</label>
+                </div>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+
+            <div class="form-group d-grid">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+
+        <div class="mt-3 text-center">
+            <a asp-action="Index" class="btn btn-link">Back to List</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+2
