@@ -1,0 +1,52 @@
+
+@model List<WebApplication5.Models.Employee>
+
+@{
+    ViewData["Title"] = "Employee List";
+}
+
+<h2 class="mb-4 text-primary text-center">Employee List</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning text-center">No employees found. <a asp-action="EmployeeCreate" class="alert-link">Create one</a>.</div>
+}
+else
+{
+    <table class="table table-bordered table-striped shadow">
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>Code</th>
+                <th>DOB</th>
+                <th>City</th>
+                <th>Gender</th>
+                <th>Status</th>
+                <th style="width: 220px;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var emp in Model)
+            {
+                <tr>
+                    <td>@emp.Name</td>
+                    <td>@emp.Code</td>
+                    <td>@emp.DOB.ToShortDateString()</td>
+                    <td>@emp.City</td>
+                    <td>@emp.Gender</td>
+                    <td>@emp.Status</td>
+                    <td>
+                        <a asp-action="EmployeeDetails" asp-route-id="@emp.Id" class="btn btn-sm btn-secondary me-1">View</a>
+                        <a asp-action="EmployeeEdit" asp-route-id="@emp.Id" class="btn btn-sm btn-info me-1 text-white">Edit</a>
+                        <a asp-action="EmployeeDelete" asp-route-id="@emp.Id" class="btn btn-sm btn-danger"
+                           onclick="return confirm('Are you sure you want to delete this employee?');">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<div class="text-end">
+    <a asp-action="EmployeeCreate" class="btn btn-success">Add New Employee</a>
+</div>
